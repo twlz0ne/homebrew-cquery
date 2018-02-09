@@ -1,34 +1,42 @@
 class Cquery < Formula
   desc "Low-latency language server supporting multi-million line C++ code-bases"
   homepage "https://github.com/cquery-project/cquery"
-  version "v2018-01-23@1825"
+  version "v20180203"
   url "https://github.com/cquery-project/cquery/archive/#{version}.tar.gz"
-  sha256 "ff0a156638e582e7dd6af6ac5c4c364a07b216790308e1f80a982802854c85e7"
+  sha256 "78ab675b329042ed787bffed68a12172e5a0f5a42c3e4acffa9477fb1f9bd850"
   head "https://github.com/cquery-project/cquery.git"
+
+  revisions = {
+    "doctest"   => "b40b7e799deabac916d631d181a7f19f3060acc5",
+    "loguru"    => "bead38889d44d9fdb5c52916d1f26c4d6af09e66",
+    "msgpack-c" => "208595b2620cf6260ce3d6d4cf8543f13b206449",
+    "rapidjson" => "daabb88e001f562e1f7df5f44d7fed32a0c107c2",
+    "sparsepp"  => "1ca7189fe81ee8c59bf08196852f70843a68a63a",
+  }
 
   resource "doctest" do
     url "https://github.com/onqtam/doctest.git",
-        :revision => "79a379827251cd819c5286070834ccd0ac628af9"
+        :revision => revisions["doctest"]
   end
 
   resource "sparsepp" do
     url "https://github.com/greg7mdp/sparsepp.git",
-        :revision => "6bfe3b4bdb364993e612d6bb729d680cf4c77649"
+        :revision => revisions["sparsepp"]
   end
 
   resource "rapidjson" do
     url "https://github.com/miloyip/rapidjson.git",
-        :revision => "83f149e70eca569a51a81dd94c49d5a0eff3992d"
+        :revision => revisions["rapidjson"]
   end
 
   resource "loguru" do
     url "https://github.com/emilk/loguru.git",
-        :revision => "37e48808d720194199bc273be4184402a0bc394a"
+        :revision => revisions["loguru"]
   end
 
   resource "msgpack-c" do
     url "https://github.com/msgpack/msgpack-c.git",
-        :revision => "208595b2620cf6260ce3d6d4cf8543f13b206449"
+        :revision => revisions["msgpack-c"]
   end
 
   def install
