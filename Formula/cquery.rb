@@ -39,6 +39,12 @@ class Cquery < Formula
         :revision => revisions["msgpack-c"]
   end
 
+  option "variant=", "Variant name for saving configuration and build results, e.g. release(default), debug, asan"
+  option "llvm-config=", "Path to llvm-config, default is #{Formula['llvm'].opt_bin}/llvm-config"
+  option "bundled-clang=", "Bundled clang version, downloaded from https://releases.llvm.org/ , e.g. 4.0.0 5.0.1"
+
+  depends_on "llvm"
+
   def install
     if build.stable?
       (buildpath/"third_party/doctest").install resource("doctest")
@@ -47,9 +53,33 @@ class Cquery < Formula
       (buildpath/"third_party/loguru").install resource("loguru")
       (buildpath/"third_party/msgpack-c").install resource("msgpack-c")
     end
-    system "./waf", "configure", "--prefix=#{prefix}"
-    system "./waf", "build"
-    system "./waf", "install"
+
+    variant = ARGV.value("variant") || "release"
+    llvm_config = ARGV.value("llvm-config")
+    bundled_clang = ARGV.value("bundled-clang")
+
+    args = %W[
+    ]
+
+    if ARGV.verbose?
+      args << "-v"
+    end
+
+    if llvm_config
+      variant = "system"
+      args << "--llvm-config=#{llvm_config}"
+    end
+
+    if bundled_clang
+      variant = "clang" + bundled_clang.split(".")[0]
+      args << "--bundled-clang=#{bundled_clang}"
+    end
+
+    args << "--variant=#{variant}" if variant
+    args << "--llvm-config=#{Formula['llvm'].opt_bin}/llvm-config" unless llvm_config or bundled_clang
+
+    system "./waf", "configure", "--prefix=#{prefix}", *args
+    system "./waf", "build", *args
+    system "./waf", "install", *args
   end
 end
-
