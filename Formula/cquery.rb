@@ -1,14 +1,14 @@
 class Cquery < Formula
   desc "Low-latency language server supporting multi-million line C++ code-bases"
   homepage "https://github.com/cquery-project/cquery"
-  version "v20180203"
+  version "v20180215"
   url "https://github.com/cquery-project/cquery/archive/#{version}.tar.gz"
-  sha256 "78ab675b329042ed787bffed68a12172e5a0f5a42c3e4acffa9477fb1f9bd850"
+  sha256 "1651672e2e5f9707778ab2b9a0b719596c7cb8bf77f374994abc23baa532148d"
   head "https://github.com/cquery-project/cquery.git"
 
   revisions = {
     "doctest"   => "b40b7e799deabac916d631d181a7f19f3060acc5",
-    "loguru"    => "bead38889d44d9fdb5c52916d1f26c4d6af09e66",
+    "loguru"    => "2c35b5e7251ab5d364b1b3164eccef7b5d2293c5",
     "msgpack-c" => "208595b2620cf6260ce3d6d4cf8543f13b206449",
     "rapidjson" => "daabb88e001f562e1f7df5f44d7fed32a0c107c2",
     "sparsepp"  => "1ca7189fe81ee8c59bf08196852f70843a68a63a",
