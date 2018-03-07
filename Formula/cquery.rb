@@ -78,6 +78,8 @@ class Cquery < Formula
     args << "--variant=#{variant}" if variant
     args << "--llvm-config=#{Formula['llvm'].opt_bin}/llvm-config" unless llvm_config or bundled_clang
 
+    ENV.prepend_path "PATH", Formula["llvm"].opt_bin
+
     system "./waf", "configure", "--prefix=#{prefix}", *args
     system "./waf", "build", *args
     system "./waf", "install", *args
